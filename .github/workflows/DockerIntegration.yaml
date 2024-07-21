@@ -33,7 +33,7 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          context: C:\Users\User\Desktop\Devops-Dinghy\Yakir\CI\Continuous-Integration  # Path to the Dockerfile and build context
+          context: C:\Users\User\Desktop\Devops-Dinghy\Yakir\CI\Continuous-Integration
           push: true
           tags: |
             local_image:0.1
