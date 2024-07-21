@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Build Docker Image
-        run: docker build -t local_image:0.2 -f C:\Users\User\Desktop\Devops-Dinghy\Yakir\CI\Continuous-Integration\app\Dockerfile C:\Users\User\Desktop\Devops-Dinghy\Yakir\CI\Continuous-Integration\app
+        run: docker build -t local_image:0.3 -f C:\Users\User\Desktop\Devops-Dinghy\Yakir\CI\Continuous-Integration\app\Dockerfile C:\Users\User\Desktop\Devops-Dinghy\Yakir\CI\Continuous-Integration\app
 
       - name: List Docker Images
         run: docker images
@@ -39,7 +39,7 @@ jobs:
         run: docker logout
 
       - name: Run Docker Container
-        run: docker run -d --name local_container -p 9002:9001 local_image:0.2
+        run: docker run -d --name dockerhub_container -p 9002:9001 local_image:0.2
 
       - name: List Docker Processes
         run: docker ps
