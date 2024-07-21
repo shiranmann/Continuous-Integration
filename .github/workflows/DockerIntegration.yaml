@@ -7,20 +7,20 @@ on:
 
 jobs:
   Local_Image:
-    runs-on: self-hosted 
+    runs-on: self-hosted
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Build Docker Image
-        run: docker build -t local_image:0.1 C:\Users\User\Desktop\Devops-Dinghy\Yakir\CI\Continuous-Integration\app
+        run: docker build -t local_image:0.1 -f C:\Users\User\Desktop\Devops-Dinghy\Yakir\CI\Continuous-Integration\app\Dockerfile C:\Users\User\Desktop\Devops-Dinghy\Yakir\CI\Continuous-Integration\app
 
       - name: List Docker Images
         run: docker images
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        uses: docker/setup-buildx-action@v2
 
       - name: Login to Docker Hub
         uses: docker/login-action@v2
@@ -33,8 +33,7 @@ jobs:
         with:
           context: C:\Users\User\Desktop\Devops-Dinghy\Yakir\CI\Continuous-Integration\app
           push: true
-          tags: |
-            local_image:0.1
+          tags: local_image:0.1
 
       - name: Logout from Docker Hub
         run: docker logout
