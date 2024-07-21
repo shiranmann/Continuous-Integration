@@ -1,0 +1,23 @@
+name: Continuous Integration by Local
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  Local_Image:
+    runs-on: self-hosted 
+
+    steps:
+      - name: Build Docker Image
+        run: sudo docker build -t local_image:0.1 C:\Users\User\Desktop\Devops-Dinghy\Yakir\CI\Continuous-Integration
+
+      - name: List Docker Images
+        run: sudo docker images
+      
+      - name: Run Docker Container
+        run: sudo docker run -d --name local_container -p 9002:9001 local_image:0.1
+
+      - name: List Docker Processes
+        run: sudo docker ps
