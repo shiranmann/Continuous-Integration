@@ -33,7 +33,7 @@ jobs:
         with:
           context: C:\Users\User\Desktop\Devops-Dinghy\Yakir\CI\Continuous-Integration\app
           push: true
-          tags: shiranm/continuous-integration:0.4
+          tags: shiranman/continuous-integration:0.1
 
       - name: Logout from Docker Hub
         run: docker logout
