@@ -33,7 +33,7 @@ jobs:
         with:
           context: ./app
           push: true
-          tags: shiranman/continuous-integration:0.2
+          tags: shiranman/continuous-integration:0.3
 
       - name: Logout from Docker Hub
         run: docker logout
