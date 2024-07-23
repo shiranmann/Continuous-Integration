@@ -17,7 +17,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build Docker Image
-        run: docker build -t local_image:0.3 ./app
+        run: docker build -t local_image:0.2 ./app
 
       - name: List Docker Images
         run: docker images
@@ -39,7 +39,7 @@ jobs:
         run: docker logout
 
       - name: Run Docker Container
-        run: docker run -d --name dockerhub_container -p 9002:9001 local_image:0.3
+        run: docker run -d --name dockerhub_container -p 9002:9001 local_image:0.2
 
       - name: List Docker Processes
         run: docker ps
