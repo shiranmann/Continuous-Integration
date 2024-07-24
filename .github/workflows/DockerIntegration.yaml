@@ -23,6 +23,7 @@ jobs:
           elif command -v yum &> /dev/null; then
             sudo yum update && sudo yum reinstall ca-certificates
           fi
+        shell: bash
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -53,6 +54,7 @@ jobs:
         run: |
           curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
           sudo installer -pkg AWSCLIV2.pkg -target /
+        shell: bash
 
       - name: Configure AWS CLI
         run: aws configure
@@ -70,3 +72,4 @@ jobs:
             docker ps
             docker logout
           EOF
+        shell: bash
