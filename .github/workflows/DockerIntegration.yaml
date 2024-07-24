@@ -33,7 +33,7 @@ jobs:
         with:
           context: ./app
           push: true
-          tags: shiranman/continuous-integration:0.2
+          tags: shiranman/continuous-integration:0.4
 
       - name: Logout from Docker Hub
         run: docker logout
@@ -54,8 +54,8 @@ jobs:
         run: |
           ssh -o StrictHostKeyChecking=no -i "${{ secrets.EC2_SSH_KEY }}" ec2-user@${{ secrets.EC2_INSTANCE_IP }} << 'EOF'
             docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" -p "${{ secrets.DOCKERHUB_TOKEN }}"
-            docker pull shiranman/continuous-integration:0.2
-            docker run -d --name dockerhub_container_aws -p 9002:9001 shiranman/continuous-integration:0.2
+            docker pull shiranman/continuous-integration:0.4
+            docker run -d --name dockerhub_container_aws -p 9002:9001 shiranman/continuous-integration:0.4
             docker ps
             docker logout
           EOF
