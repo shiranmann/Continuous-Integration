@@ -10,6 +10,9 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      - name: Add safe directory
+        run: git config --global --add safe.directory C:/Users/User/actions-runner/_work/Continuous-Integration/Continuous-Integration
+
       - name: Checkout code
         uses: actions/checkout@v3
 
