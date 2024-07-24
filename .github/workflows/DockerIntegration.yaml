@@ -17,7 +17,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build Docker Image
-        run: docker build -t local_image:0.2 ./app
+        run: docker build -t local_image:0.4 ./app
 
       - name: List Docker Images
         run: docker images
@@ -33,13 +33,29 @@ jobs:
         with:
           context: ./app
           push: true
-          tags: shiranman/continuous-integration:0.3
+          tags: shiranman/continuous-integration:0.2
 
       - name: Logout from Docker Hub
         run: docker logout
 
-      - name: Run Docker Container
-        run: docker run -d --name dockerhub_container -p 9002:9001 local_image:0.2
+      - name: Install AWS CLI
+        run: |
+          curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+          sudo installer -pkg AWSCLIV2.pkg -target /
 
-      - name: List Docker Processes
-        run: docker ps
+      - name: Configure AWS CLI
+        run: aws configure
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+
+      - name: SSH into EC2 and Run Docker Commands
+        run: |
+          ssh -o StrictHostKeyChecking=no -i "${{ secrets.EC2_SSH_KEY }}" ec2-user@${{ secrets.EC2_INSTANCE_IP }} << 'EOF'
+            docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" -p "${{ secrets.DOCKERHUB_TOKEN }}"
+            docker pull shiranman/continuous-integration:0.2
+            docker run -d --name dockerhub_container -p 9002:9001 shiranman/continuous-integration:0.2
+            docker ps
+            docker logout
+          EOF
