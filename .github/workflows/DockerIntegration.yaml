@@ -17,7 +17,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Build Docker Image
-        run: docker build -t local_image:0.4 ./app
+        run: docker build -t local_image:0.5 ./app
 
       - name: List Docker Images
         run: docker images
